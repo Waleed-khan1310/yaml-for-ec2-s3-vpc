@@ -1,0 +1,85 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description:
+  Creating vpc, public subnet, ec2 instance and s3bucket
+
+Metadata:
+  Metadata:
+    AWS::CloudFormation::Interface:
+      ParameterGroups:
+        - Label:
+            default: "NEtwork Configuration"
+          Parameters:
+            - VPCcidrWaleed
+            - VPCsubnetwaleed
+
+        - Label:
+            default: "Compute"
+          Parameters:
+            - EC2imageId
+
+        - Label:
+            default: "Storage"
+          Parameters:
+            - S3bucketname
+
+
+Parameters:
+  S3bucketname:
+    Description: Bucket name must be unique
+    Type: String
+
+  EC2imageId:
+    Description: Select the image Id
+    Type: String
+    Default: ami-00a929b66ed6e0de6
+    AllowedValues:
+      - ami-00a929b66ed6e0de6
+      - ami-084568db4383264d4
+
+  VPCcidrWaleed:
+    Description: Enter the VPC CIDR block
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedValues:
+      - 10.0.0.0/16
+      - 10.1.0.0/24
+
+  VPCsubnetwaleed:
+    Description: Enter subnet cidr block
+    Type: String
+
+Resources:
+  waleedvpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCcidrWaleed
+      Tags: 
+        - Key: Project
+          Value: Banking 
+
+  waleedsubnetpub:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: !Ref VPCsubnetwaleed
+      Tags: 
+        - Key: Project
+          Value: Banking 
+      VpcId: !Ref waleedvpc
+
+  waleedS3bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3bucketname
+      Tags: 
+        - Key: Project
+          Value: Banking
+
+  waleedEC2instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref EC2imageId
+      InstanceType: t2.micro
+      Tags: 
+        - Key: Project
+          Value: Banking

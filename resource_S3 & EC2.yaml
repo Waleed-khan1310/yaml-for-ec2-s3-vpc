@@ -1,0 +1,27 @@
+---
+ AWSTemplateFormatVersion: "2010-09-09"
+Description: This is the first CloudFormation template to create S3 bucket and EC2 with parameters
+
+Parameters:
+  EC2amiID:
+    Type: string
+    Default: ami-084568db4383264d4
+
+  InstanceTypeParameters:
+    Type: string
+    Default: t2.micro
+
+  S3bucketnameparameter:
+    Type: string
+    
+Resources:
+  WaleedS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3bucketnameparameter
+
+  WaleedEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceTypeParameters
+      ImageId: !Ref EC2amiID
