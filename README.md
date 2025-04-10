@@ -1,0 +1,1 @@
+# yaml-for-ec2-s3-vpc
