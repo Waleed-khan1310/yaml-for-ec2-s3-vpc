@@ -49,6 +49,10 @@ Parameters:
     Description: Enter subnet cidr block
     Type: String
 
+Mapping:
+  
+
+
 Resources:
   waleedvpc:
     Type: AWS::EC2::VPC
